@@ -1,0 +1,30 @@
+! ============================================================
+! Passive/SPAN deployment shape. Traffic evidence for this shape comes
+! from a tap or SPAN port lower in the Purdue stack (e.g. a Claroty
+! style sensor) and is visibility only -- it does not enforce anything.
+! The actual policy governing what's allowed lives separately, on the
+! Level 3 core switch's own ACLs, a traditional networking vendor
+! (Cisco IOS here) rather than the DMZ inline appliance.
+! Cisco IOS extended named ACL syntax (distinct from the ASA syntax
+! used for the inline appliance policy, since these are genuinely
+! different devices from different vendors in this deployment shape).
+! ============================================================
+
+ip access-list extended CORE-SWITCH-ACL
+ remark -- Site Ops (L3) to Area segments (L2-1): SCADA polling + eng access --
+ permit tcp host 10.30.0.10 10.12.0.0 0.0.0.255 eq 502
+ permit tcp host 10.30.0.10 10.13.0.0 0.0.0.255 eq 502
+ permit tcp host 10.30.0.10 10.14.0.0 0.0.0.255 eq 502
+ permit tcp host 10.30.0.10 10.15.0.0 0.0.0.255 eq 502
+ permit tcp host 10.30.0.12 10.12.0.0 0.0.0.255 eq 502
+ permit tcp host 10.30.0.12 10.13.0.0 0.0.0.255 eq 502
+ permit tcp host 10.30.0.12 10.14.0.0 0.0.0.255 eq 502
+ permit tcp host 10.30.0.12 10.15.0.0 0.0.0.255 eq 502
+ remark -- Area to Area: deny by default --
+ deny ip 10.12.0.0 0.0.0.255 10.13.0.0 0.0.0.255 log
+ deny ip 10.12.0.0 0.0.0.255 10.14.0.0 0.0.0.255 log
+ deny ip 10.12.0.0 0.0.0.255 10.15.0.0 0.0.0.255 log
+ deny ip 10.13.0.0 0.0.0.255 10.14.0.0 0.0.0.255 log
+ deny ip 10.13.0.0 0.0.0.255 10.15.0.0 0.0.0.255 log
+ deny ip 10.14.0.0 0.0.0.255 10.15.0.0 0.0.0.255 log
+ deny ip any any log

@@ -1,0 +1,41 @@
+! ============================================================
+! Variant of baseline_host_routed.acl with ONE planted change:
+! the Intake -> Filtration deny-by-default rule is replaced with an
+! overly broad permit (any protocol, any port) instead of a scoped
+! or absent rule. Everything else is identical to the baseline.
+! Used for case03 and, combined with a diode violation, case08.
+! ============================================================
+
+access-list OT-ENFORCE extended permit tcp 10.4.0.0 255.255.0.0 host 10.40.0.11 eq 443
+access-list OT-ENFORCE extended permit tcp 10.4.0.0 255.255.0.0 host 10.40.0.12 eq 443
+access-list OT-ENFORCE extended permit tcp 10.4.0.0 255.255.0.0 host 10.40.0.13 eq 443
+access-list OT-ENFORCE extended deny ip 10.4.0.0 255.255.0.0 any log
+
+access-list OT-ENFORCE extended permit tcp host 10.30.0.11 host 10.40.0.11 eq 1433
+access-list OT-ENFORCE extended permit tcp host 10.40.0.12 host 10.30.0.10 eq 443
+access-list OT-ENFORCE extended permit tcp host 10.40.0.12 host 10.30.0.11 eq 443
+access-list OT-ENFORCE extended permit tcp host 10.40.0.12 host 10.30.0.12 eq 443
+access-list OT-ENFORCE extended permit tcp host 10.40.0.13 host 10.30.0.12 eq 3389
+access-list OT-ENFORCE extended deny ip 10.40.0.0 255.255.255.0 any log
+
+access-list OT-ENFORCE extended permit tcp host 10.30.0.10 10.12.0.0 255.255.255.0 eq 502
+access-list OT-ENFORCE extended permit tcp host 10.30.0.10 10.13.0.0 255.255.255.0 eq 502
+access-list OT-ENFORCE extended permit tcp host 10.30.0.10 10.14.0.0 255.255.255.0 eq 502
+access-list OT-ENFORCE extended permit tcp host 10.30.0.10 10.15.0.0 255.255.255.0 eq 502
+access-list OT-ENFORCE extended permit tcp host 10.30.0.12 10.12.0.0 255.255.255.0 eq 502
+access-list OT-ENFORCE extended permit tcp host 10.30.0.12 10.13.0.0 255.255.255.0 eq 502
+access-list OT-ENFORCE extended permit tcp host 10.30.0.12 10.14.0.0 255.255.255.0 eq 502
+access-list OT-ENFORCE extended permit tcp host 10.30.0.12 10.15.0.0 255.255.255.0 eq 502
+
+! PLANTED VIOLATION: was "deny ip 10.12.0.0/24 10.13.0.0/24 log" in baseline.
+! A vendor support ticket widened this to "any ip, any port" during
+! troubleshooting and it was never narrowed back — a realistic drift
+! pattern, not just a hand-picked worst case.
+access-list OT-ENFORCE extended permit ip 10.12.0.0 255.255.255.0 10.13.0.0 255.255.255.0
+access-list OT-ENFORCE extended deny ip 10.12.0.0 255.255.255.0 10.14.0.0 255.255.255.0 log
+access-list OT-ENFORCE extended deny ip 10.12.0.0 255.255.255.0 10.15.0.0 255.255.255.0 log
+access-list OT-ENFORCE extended deny ip 10.13.0.0 255.255.255.0 10.14.0.0 255.255.255.0 log
+access-list OT-ENFORCE extended deny ip 10.13.0.0 255.255.255.0 10.15.0.0 255.255.255.0 log
+access-list OT-ENFORCE extended deny ip 10.14.0.0 255.255.255.0 10.15.0.0 255.255.255.0 log
+
+access-list OT-ENFORCE extended deny ip any any log

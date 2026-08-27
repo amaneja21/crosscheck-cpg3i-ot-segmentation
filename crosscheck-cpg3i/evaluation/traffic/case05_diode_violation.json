@@ -1,0 +1,10 @@
+{
+  "case_id": "case05_diode_violation",
+  "description": "The SIS enclave's data diode should carry traffic in exactly one direction: disinfection status out to the OT historian, nothing back in. This evidence includes one packet observed the wrong way.",
+  "policy_file": "policy/baseline_host_routed.acl",
+  "deployment_shape": "host_routed_inline",
+  "flows": [
+    {"source": "10.101.1.5", "destination": "10.30.0.11", "protocol": "modbus", "port": 502, "direction": "diode_one_way", "observed_frequency": "continuous, status push", "first_seen": "2026-06-02"},
+    {"source": "10.30.0.11", "destination": "10.101.1.5", "protocol": "modbus", "port": 502, "direction": "L3_to_diode_reverse", "observed_frequency": "1 packet, single occurrence", "first_seen": "2026-08-19", "notes": "PLANTED VIOLATION: a single packet observed flowing OT historian -> SIS PLC, the direction a one-way hardware diode should make physically impossible. Indicates either the diode has been bypassed/miswired or this boundary is not actually diode-enforced as the deployment documentation claims."}
+  ]
+}

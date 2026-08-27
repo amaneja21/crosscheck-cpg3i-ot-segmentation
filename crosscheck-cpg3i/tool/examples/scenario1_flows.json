@@ -1,0 +1,10 @@
+[
+  {
+    "source_group": "Intake Group",
+    "destination_group": "Filtration Group",
+    "protocol": "TCP",
+    "port": 502,
+    "frequency": "continuous",
+    "first_seen": "2026-01-04"
+  }
+]
