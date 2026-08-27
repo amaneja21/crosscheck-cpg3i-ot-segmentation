@@ -1,9 +1,0 @@
-{
-  "case_id": "case06_diode_compliant",
-  "description": "Compliant counterpart to case05: only the expected one-way status push is observed across the full evidence window, never the reverse.",
-  "policy_file": "policy/baseline_host_routed.acl",
-  "deployment_shape": "host_routed_inline",
-  "flows": [
-    {"source": "10.101.1.5", "destination": "10.30.0.11", "protocol": "modbus", "port": 502, "direction": "diode_one_way", "observed_frequency": "continuous, status push, 30 day window", "first_seen": "2026-06-02"}
-  ]
-}

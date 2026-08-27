@@ -1,7 +1,0 @@
-[
-  {
-    "source_group": "IT Group",
-    "destination_group": "DMZ Group",
-    "action": "ALLOW"
-  }
-]
