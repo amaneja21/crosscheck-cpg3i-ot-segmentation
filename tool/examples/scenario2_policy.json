@@ -1,0 +1,7 @@
+[
+  {
+    "source_group": "Patch Proxy Group",
+    "destination_group": "SCADA Group",
+    "action": "ALLOW"
+  }
+]

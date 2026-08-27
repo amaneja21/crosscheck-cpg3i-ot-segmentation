@@ -1,0 +1,10 @@
+{
+  "case_id": "case07b_exception_invalid",
+  "description": "Same physical layout as case07a -- a device sharing VLAN 13 with PLC-2, no L3 boundary between them -- but the only supporting documentation offered is a budget note, not a safety or feasibility rationale. This is the negative case for the same clause: the reasoning layer should NOT grant the 'where safe and technically feasible' exception here, since nothing about this pairing is actually infeasible to segment.",
+  "policy_file": "policy/baseline_host_routed.acl",
+  "deployment_shape": "host_routed_inline",
+  "supporting_documents": ["traffic/supporting_note_07b.md"],
+  "flows": [
+    {"source": "10.13.0.11", "destination": "10.13.0.13", "protocol": "modbus", "port": 502, "direction": "L2-1_same_segment", "observed_frequency": "continuous, 2s poll", "first_seen": "2026-07-20", "notes": "PLC-2 and a second HMI (10.13.0.13, added for a contractor) on the same VLAN 13 segment, no L3 boundary between them"}
+  ]
+}
