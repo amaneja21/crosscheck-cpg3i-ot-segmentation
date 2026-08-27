@@ -1,7 +1,0 @@
-[
-  {
-    "source_group": "ANY",
-    "destination_group": "Filtration Group",
-    "action": "ALLOW"
-  }
-]
