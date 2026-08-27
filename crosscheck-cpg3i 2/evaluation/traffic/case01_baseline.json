@@ -1,0 +1,22 @@
+{
+  "case_id": "case01_baseline",
+  "description": "Fully compliant snapshot. Every observed flow is explained by an existing permit rule in baseline_host_routed.acl; no inter-area traffic is observed, consistent with the deny-by-default rules being enforced under a host-routed deployment.",
+  "policy_file": "policy/baseline_host_routed.acl",
+  "deployment_shape": "host_routed_inline",
+  "flows": [
+    {"source": "10.4.12.44", "destination": "10.40.0.11", "protocol": "https", "port": 443, "direction": "IT_to_DMZ", "observed_frequency": "daily, business hours", "first_seen": "2026-06-02"},
+    {"source": "10.4.20.10", "destination": "10.40.0.12", "protocol": "https", "port": 443, "direction": "IT_to_DMZ", "observed_frequency": "hourly", "first_seen": "2026-06-02"},
+    {"source": "10.4.15.7", "destination": "10.40.0.13", "protocol": "https", "port": 443, "direction": "IT_to_DMZ", "observed_frequency": "occasional, vendor sessions", "first_seen": "2026-06-10"},
+    {"source": "10.30.0.11", "destination": "10.40.0.11", "protocol": "sql", "port": 1433, "direction": "L3_to_DMZ", "observed_frequency": "continuous, 5 min interval", "first_seen": "2026-06-02"},
+    {"source": "10.40.0.12", "destination": "10.30.0.10", "protocol": "https", "port": 443, "direction": "DMZ_to_L3", "observed_frequency": "weekly, patch window", "first_seen": "2026-06-02"},
+    {"source": "10.40.0.12", "destination": "10.30.0.11", "protocol": "https", "port": 443, "direction": "DMZ_to_L3", "observed_frequency": "weekly, patch window", "first_seen": "2026-06-02"},
+    {"source": "10.40.0.12", "destination": "10.30.0.12", "protocol": "https", "port": 443, "direction": "DMZ_to_L3", "observed_frequency": "weekly, patch window", "first_seen": "2026-06-02"},
+    {"source": "10.40.0.13", "destination": "10.30.0.12", "protocol": "rdp", "port": 3389, "direction": "DMZ_to_L3", "observed_frequency": "occasional, vendor sessions", "first_seen": "2026-06-12"},
+    {"source": "10.30.0.10", "destination": "10.12.0.0/24", "protocol": "modbus", "port": 502, "direction": "L3_to_L2-1", "observed_frequency": "continuous, 1s poll", "first_seen": "2026-06-02"},
+    {"source": "10.30.0.10", "destination": "10.13.0.0/24", "protocol": "modbus", "port": 502, "direction": "L3_to_L2-1", "observed_frequency": "continuous, 1s poll", "first_seen": "2026-06-02"},
+    {"source": "10.30.0.10", "destination": "10.14.0.0/24", "protocol": "modbus", "port": 502, "direction": "L3_to_L2-1", "observed_frequency": "continuous, 1s poll", "first_seen": "2026-06-02"},
+    {"source": "10.30.0.10", "destination": "10.15.0.0/24", "protocol": "modbus", "port": 502, "direction": "L3_to_L2-1", "observed_frequency": "continuous, 1s poll", "first_seen": "2026-06-02"},
+    {"source": "10.30.0.12", "destination": "10.13.0.11", "protocol": "modbus", "port": 502, "direction": "L3_to_L2-1", "observed_frequency": "occasional, programming session", "first_seen": "2026-07-14"},
+    {"source": "10.101.1.5", "destination": "10.30.0.11", "protocol": "modbus", "port": 502, "direction": "diode_one_way", "observed_frequency": "continuous, status push", "first_seen": "2026-06-02", "notes": "SIS disinfection safety PLC, physically bridged by a one-way data diode; no return path exists"}
+  ]
+}

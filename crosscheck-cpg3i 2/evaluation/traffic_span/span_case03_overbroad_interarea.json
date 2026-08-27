@@ -1,0 +1,11 @@
+{
+  "case_id": "span_case03_overbroad_interarea",
+  "description": "Passive/SPAN counterpart to case03. The core switch tap sees the same lateral SMB flow; switch_acl_overbroad.acl is the documented policy for this deployment shape and contains the same planted any/any widening as its inline counterpart.",
+  "policy_file": "policy/switch_acl_overbroad.acl",
+  "deployment_shape": "passive_span",
+  "flows": [
+    {"source": "10.30.0.10", "destination": "10.12.0.0/24", "protocol": "modbus", "port": 502, "direction": "L3_to_L2-1", "observed_frequency": "continuous, 1s poll", "first_seen": "2026-06-02"},
+    {"source": "10.30.0.10", "destination": "10.13.0.0/24", "protocol": "modbus", "port": 502, "direction": "L3_to_L2-1", "observed_frequency": "continuous, 1s poll", "first_seen": "2026-06-02"},
+    {"source": "10.12.0.11", "destination": "10.13.0.11", "protocol": "smb", "port": 445, "direction": "L2-1_to_L2-1", "observed_frequency": "2 sessions, single day", "first_seen": "2026-08-05", "notes": "PLANTED VIOLATION: same lateral flow as case03, captured by the core switch tap instead of a host-routed appliance."}
+  ]
+}

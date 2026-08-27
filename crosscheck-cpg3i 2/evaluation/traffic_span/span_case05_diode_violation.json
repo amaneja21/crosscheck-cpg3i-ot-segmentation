@@ -1,0 +1,10 @@
+{
+  "case_id": "span_case05_diode_violation",
+  "description": "Passive/SPAN counterpart to case05. The diode boundary is checked purely on the direction field regardless of collection method, so this mirrors case05 exactly to test invariance.",
+  "policy_file": "policy/switch_acl_baseline.acl",
+  "deployment_shape": "passive_span",
+  "flows": [
+    {"source": "10.101.1.5", "destination": "10.30.0.11", "protocol": "modbus", "port": 502, "direction": "diode_one_way", "observed_frequency": "continuous, status push", "first_seen": "2026-06-02"},
+    {"source": "10.30.0.11", "destination": "10.101.1.5", "protocol": "modbus", "port": 502, "direction": "L3_to_diode_reverse", "observed_frequency": "1 packet, single occurrence", "first_seen": "2026-08-19", "notes": "PLANTED VIOLATION: same wrong-direction packet as case05, seen from the tap instead of the appliance."}
+  ]
+}

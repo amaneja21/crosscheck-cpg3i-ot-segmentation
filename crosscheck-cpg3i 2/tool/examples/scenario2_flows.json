@@ -1,0 +1,10 @@
+[
+  {
+    "source_group": "IT Group",
+    "destination_group": "SCADA Group",
+    "protocol": "TCP",
+    "port": 3389,
+    "frequency": "several times a day",
+    "first_seen": "2026-02-11"
+  }
+]

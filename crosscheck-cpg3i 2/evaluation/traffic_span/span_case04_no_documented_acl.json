@@ -1,0 +1,11 @@
+{
+  "case_id": "span_case04_no_documented_acl",
+  "description": "A different way to end up with no evidence for Clause 2 than case04's perimeter-NGFW blind spot: here the passive tap DOES capture area-to-area traffic, but no switch ACL configuration was ever exported or exists for this core switch, so there is no documented policy to compare the traffic against. A compliance verdict needs both a policy and evidence side; only evidence exists here.",
+  "policy_file": null,
+  "deployment_shape": "passive_span",
+  "flows": [
+    {"source": "10.30.0.10", "destination": "10.12.0.0/24", "protocol": "modbus", "port": 502, "direction": "L3_to_L2-1", "observed_frequency": "continuous, 1s poll", "first_seen": "2026-06-02"},
+    {"source": "10.12.0.11", "destination": "10.14.0.11", "protocol": "modbus", "port": 502, "direction": "L2-1_to_L2-1", "observed_frequency": "1 session, single occurrence", "first_seen": "2026-08-15", "notes": "Traffic exists between two areas, but with no switch ACL export available this cannot be attributed to a permitted rule or flagged as unauthorized -- there is nothing documented to check it against."}
+  ],
+  "notes": "policy_file is intentionally null: this utility's core switch ACLs were never handed over during evidence collection, a realistic gap for smaller water systems per the paper's own discussion of SIEM adoption gaps in the sector."
+}

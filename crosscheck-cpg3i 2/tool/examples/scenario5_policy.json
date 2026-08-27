@@ -1,0 +1,8 @@
+[
+  {
+    "source_group": "SIS Group",
+    "destination_group": "Filtration Group",
+    "action": "ALLOW",
+    "physical_control": "diode"
+  }
+]
